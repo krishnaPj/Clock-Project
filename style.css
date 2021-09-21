@@ -1,114 +1,125 @@
-.time-label {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    -moz-transform: translateX(-50%) translateY(-50%);
-    -webkit-transform: translateX(-50%) translateY(-50%);
-    transform: translateX(-50%) translateY(-50%);
-}
-
-#time {
-    font-size: 70px;
-    margin-top: 100px;
-}
-
-#zone {
-    font-size: 70px;
-    margin-top: 100px;
-}
-
-.buttons {
-    margin-top: 70px;
-}
-
-.dst-btn {
-    margin-right: 37px;
-}
-
-.clock {
-    visibility: hidden;
-    width: 350px;
-    height: 350px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background: url(clock.png);
-    background-size: cover;
-    border: 4px solid #091921;
-    border-radius: 50%;
-    box-shadow: 0 -15px 15px rgba(255, 255, 255, 0.05), inset 0 -15px 15px rgba(255, 255, 255, 0.05), 0 15px 15px rgba(0, 0, 0, 0.3), inset 0 15px 15px rgba(0, 0, 0, 0.3);
-}
-
-.clock::before {
-    content: '';
-    position: absolute;
-    width: 15px;
-    height: 15px;
-    background: red;
-    border-radius: 50%;
-    z-index: 10000;
-}
-
-.clock .hour,
-.clock .min,
-.clock .sec {
-    position: absolute;
-}
-
-.clock .hour,
-.hr {
-    width: 160px;
-    height: 160px;
-}
-
-.clock .min,
-.mn {
-    width: 190px;
-    height: 190px;
-}
-
-.clock .sec,
-.sc {
-    width: 230px;
-    height: 230px;
-}
-
-.hr,
-.mn,
-.sc {
-    display: flex;
-    justify-content: center;
-    /* align-items: center; */
-    position: absolute;
-    border-radius: 50%;
-}
-
-.hr:before {
-    content: '';
-    position: absolute;
-    width: 8px;
-    height: 80px;
-    background: black;
-    z-index: 10;
-    border-radius: 6px 6px 0 0;
-}
-
-.mn:before {
-    content: '';
-    position: absolute;
-    width: 4px;
-    height: 90px;
-    background: black;
-    z-index: 11;
-    border-radius: 6px 6px 0 0;
-}
-
-.sc:before {
-    content: '';
-    position: absolute;
-    width: 2px;
-    height: 150px;
-    background: red;
-    z-index: 12;
-    border-radius: 6px 6px 0 0;
-}
+ .time-label {
+     position: absolute;
+     top: 50%;
+     left: 50%;
+     -moz-transform: translateX(-50%) translateY(-50%);
+     -webkit-transform: translateX(-50%) translateY(-50%);
+     transform: translateX(-50%) translateY(-50%);
+ }
+ 
+ div#content {
+     background-image: url("https://source.unsplash.com/random/1920x1080");
+     background-color: rgba(255, 255, 255, 0.6);
+     background-blend-mode: lighten;
+     min-height: 1000px;
+     min-width: 1000px;
+     /* You may add things like width, height, background-size... */
+ }
+ 
+ #time {
+     font-size: 70px;
+     margin-top: 100px;
+     color: black;
+ }
+ 
+ #zone {
+     font-size: 70px;
+     margin-top: 100px;
+     color: black;
+ }
+ 
+ .buttons {
+     margin-top: 70px;
+ }
+ 
+ .dst-btn {
+     margin-right: 27px;
+ }
+ 
+ .clock {
+     visibility: hidden;
+     width: 350px;
+     height: 350px;
+     display: flex;
+     justify-content: center;
+     align-items: center;
+     background: url(clock.png);
+     background-size: cover;
+     border: 4px solid #091921;
+     border-radius: 50%;
+     box-shadow: 0 -15px 15px rgba(255, 255, 255, 0.05), inset 0 -15px 15px rgba(255, 255, 255, 0.05), 0 15px 15px rgba(0, 0, 0, 0.3), inset 0 15px 15px rgba(0, 0, 0, 0.3);
+ }
+ 
+ .clock::before {
+     content: '';
+     position: absolute;
+     width: 15px;
+     height: 15px;
+     background: red;
+     border-radius: 50%;
+     z-index: 10000;
+ }
+ 
+ .clock .hour,
+ .clock .min,
+ .clock .sec {
+     position: absolute;
+ }
+ 
+ .clock .hour,
+ .hr {
+     width: 160px;
+     height: 160px;
+ }
+ 
+ .clock .min,
+ .mn {
+     width: 190px;
+     height: 190px;
+ }
+ 
+ .clock .sec,
+ .sc {
+     width: 230px;
+     height: 230px;
+ }
+ 
+ .hr,
+ .mn,
+ .sc {
+     display: flex;
+     justify-content: center;
+     /* align-items: center; */
+     position: absolute;
+     border-radius: 50%;
+ }
+ 
+ .hr:before {
+     content: '';
+     position: absolute;
+     width: 8px;
+     height: 80px;
+     background: black;
+     z-index: 10;
+     border-radius: 6px 6px 0 0;
+ }
+ 
+ .mn:before {
+     content: '';
+     position: absolute;
+     width: 4px;
+     height: 90px;
+     background: black;
+     z-index: 11;
+     border-radius: 6px 6px 0 0;
+ }
+ 
+ .sc:before {
+     content: '';
+     position: absolute;
+     width: 2px;
+     height: 150px;
+     background: red;
+     z-index: 12;
+     border-radius: 6px 6px 0 0;
+ }
