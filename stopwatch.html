@@ -116,15 +116,20 @@
         function start() {
             time = setInterval(timer, 10);
             $("#stopwatch").removeClass("blink_me");
+            $("#startBtn").html('Start');
+            $("#stopwatch").removeClass("animate__animated animate__bounceInDown");
         }
 
         function stop() {
             clearInterval(time)
             $("#stopwatch").addClass("blink_me");
+            $("#startBtn").html('Restart');
+            $("#stopwatch").removeClass("animate__animated animate__bounceInDown");
         }
 
         function reset() {
             $("#stopwatch").removeClass("blink_me");
+            $("#startBtn").html('Start');
             $("#stopwatch").removeClass("animate__animated animate__bounceInDown");
             ms = 0;
             sec = 0;
