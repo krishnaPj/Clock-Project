@@ -9,30 +9,92 @@
     <link rel="stylesheet" href="https://bit.ly/3CyJBte">
     <link rel="shortcut icon" href="http://cdn.onlinewebfonts.com/svg/img_461716.png">
     <link rel="stylesheet" href="style.css">
+
+
+    <style>
+        input{
+            width: 200px;
+            outline: none;
+            border: solid;
+            color: white;
+            background: none;
+        }
+        body {
+            background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+            background-size: 400% 400%;
+            opacity: 0.9;
+            animation: gradient 15s ease infinite;
+            height: 100vh;
+            font: open-sans-serif;
+        }
+        
+        @keyframes gradient {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+        
+        .animate__animated.animate__bounceInDown {
+            --animate-duration: 3s;
+        }
+        
+        .animate__animated.animate__bounceInLeft {
+            --animate-duration: 2s;
+        }
+        
+        .animate__animated.animate__bounceInUp {
+            --animate-duration: 2s;
+        }
+        
+        .animate__animated.animate__bounceInRight {
+            --animate-duration: 2s;
+        }
+        
+        .blink_me {
+            animation: blinker 1s linear infinite;
+        }
+        
+        @keyframes blinker {
+            50% {
+                opacity: 0;
+            }
+        }
+        
+        .btn:focus,
+        .btn:active:focus,
+        .btn.active:focus,
+        .btn.focus,
+        .btn:active.focus,
+        .btn.active.focus {
+            outline: none;
+        }
+    </style>
 </head>
 
-<body>
-   
-    <div id="content" widt></div>
-    
-
+<body class="unselectable">
     <div class="time-label">
-        <input id="alarmTime" type="datetime-local">
-        <button id="alarmButton" onclick="setAlarm(this);">Setta</button>
-        <div id="alarmOptions" style="display: none;">
-            <button onclick="stopAlarm();">Stop</button>
+        <h1 style="font-weight: bold; font-size:170px;margin-left:0px;color:#fff;margin-bottom:100px;" class="stopwatch animate__animated animate__bounceInDown" id="text/javascript">
+            <input type="text" maxlength="2" style="margin-left: 55px;" onkeypress="return isNumber(event)"> :
+            <input type="text" maxlength="2" onkeypress="return isNumber(event)">
+        </h1>
+        <button title="Start stopwatch" class="btn btn-success btn-lg btn-start animate__animated animate__bounceInLeft" id="alarmOptions">Start</button>
+        <button title="Stop the stopwatch" style="margin-left:216px;" class="btn btn-warning btn-lg btn-stop dst-btn1 animate__animated animate__bounceInUp" id="alarmOptions">Stop</button>
+        <button title="Reset the stopwatch" style="margin-left:230px;" class="btn btn-danger btn-lg btn-reset dst-btn1 animate__animated animate__bounceInRight" id="alarmOptions">Reset</button>
+        <br>
+        <div class="buttons animate__animated animate__bounceInUp" style="display: inline-block;">
+            <button type="button" class="btn btn-primary btn-lg dst-btn">Alarm</button>
+            <button type="button" class="btn btn-light btn-lg dst-btn">Clocks</button>
+            <button id="style" type="button" class="btn btn-light btn-lg dst-btn" >Style</button>
+            <button id="stopwatch" type="button " class="btn btn-light btn-lg dst-btn ">Stopwatch</button>
+            <button type="button" class="btn btn-light btn-lg dst-btn ">Countdown</button>
         </div>
-        <div id="analog-clock" class="clock" style="margin-left:200px; margin-top: 10px;">
-            <div class="hour">
-                <div class="hr" id="hr"></div>
-            </div>
-            <div class="min">
-                <div class="mn" id="mn"></div>
-            </div>
-            <div class="sec">
-                <div class="sc" id="sc"></div>
-            </div>
-            
+  
             
             <script type="text/javascript">
                 
@@ -58,13 +120,13 @@
                     }
         
                     alarmTimer = setTimeout(initAlarm, differenceInMs);
-                    button.innerText = 'Cancella';
+                    button.innerText = 'Stop';
                     button.setAttribute('onclick', 'cancelAlarm(this);');
                 };
         
                 function cancelAlarm(button) {
                     clearTimeout(alarmTimer);
-                    button.innerText = 'Setta';
+                    button.innerText = 'Reset';
                     button.setAttribute('onclick', 'setAlarm(this);')
                 };
         
@@ -79,22 +141,19 @@
                     document.getElementById('alarmOptions').style.display = 'none';
                     cancelAlarm(document.getElementById('alarmButton'));
                 };
+                function isNumber(evt) {
+                evt = (evt) ? evt : window.event;
+                var charCode = (evt.which) ? evt.which : evt.keyCode;
+                if (charCode > 31 && (charCode < 48 || charCode > 57)) {
+                return false;
+                }
+                return true;
+        }
         
             </script>
 
         </div>
 
-        <div id="digital-clock" style="margin-top:-150px;"><span id="time"></span>&nbsp;<span style="font-size: 48px;">in</span>
-            <span id="zone"></span></div>
-        <div class="buttons" style="display: inline-block;margin-top:80px;">
-            <button id="alarm" type="button" class="btn btn-primary btn-lg dst-btn" >Sveglia</button>
-            <button type="button" class="btn btn-primary btn-lg dst-btn">Orologio</button>
-            <button id="style" type="button" class="btn btn-primary btn-lg dst-btn">Stile</button>
-            <button type="button " class="btn btn-primary btn-lg dst-btn ">Cronometro</button>
-            <button type="button " class="btn btn-primary btn-lg dst-btn ">Countdown</button>
-        </div>
-    </div>
-    
 
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js "></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.min.js "></script>
