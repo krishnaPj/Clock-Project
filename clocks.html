@@ -6,8 +6,12 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Clockify</title>
+    <link rel="stylesheet" href="https://bit.ly/3CyJBte">
     <link rel="shortcut icon" href="http://cdn.onlinewebfonts.com/svg/img_461716.png" />
-
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js "></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.min.js "></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
     <style>
         body {
@@ -34,30 +38,15 @@
                 background-position: 0% 50%;
             }
         }
-        
-        .dst-btn {
-            margin-right: 75px;
-        }
     </style>
 </head>
 
 <body class="unselectable">
     <div class="time-label">
-        <div id="analog-clock" class="clock" style="margin-left: 200px;">
-            <div class="hour">
-                <div class="hr" id="hr"></div>
-            </div>
-            <div class="min">
-                <div class="mn" id="mn"></div>
-            </div>
-            <div class="sec">
-                <div class="sc" id="sc"></div>
-            </div>
-        </div>
+
         <div id="digital-clock">
             <span id="time" style="font-size: 170px; font-weight: bold; color: #fff;"></span>
-        </div>
-        <br /><br /><br />
+        </div><br /><br /><br />
         <div class="buttons animate__animated animate__bounceInUp" style="display: inline-block;">
             <button type="button" class="btn btn-light btn-lg dst-btn">
           Alarm
@@ -67,11 +56,8 @@
             border-radius: 5px;
             padding-bottom: -2px;
             width: 200px;
-          " class="btn btn-light dst-btn" name="timezone-label" id="timezone-label" aria-required="true">
-          <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js "></script>
-          <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.min.js "></script>
-          <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-          <script src="script.js "></script>
+          " class="btn btn-primary dst-btn" id="timezone-label" aria-required="true">
+          <!-- <script src="script.js "></script> -->
           <script>
             // Load data from file ['Europe/Rome, Europe/Amsterdam, etc.'] into combobox
             $.ajax({
@@ -81,7 +67,7 @@
                 var splitData = data.split("\n");
                 for (i = 0; i <= splitData.length; i++) {
                   $("#timezone-label").append(
-                    "<option id='timezone-label' value='" +
+                    "<option value='" +
                       splitData[i] +
                       "'>" +
                       splitData[i] +
@@ -90,6 +76,29 @@
                 }
               }
             });
+            
+            $(document).ready(function() {
+                $("#timezone-label").val("Europe/Rome");
+                changeTimeZone();
+            });
+        
+        var myArray;
+        var hour;
+
+        function changeTimeZone() {
+            var timeZone = document.getElementById("timezone-label");
+            const str = new Date().toLocaleString("it-IT", { 
+                timeZone: timeZone.value
+            });
+            myArray = [];
+            hour = [];
+            myArray = str.split(",");
+            hour = myArray[1].split(":");
+            setInterval(function() {
+                document.getElementById("time").innerHTML =
+                    hour[0] + " : " + new Date().getMinutes() + " : " + new Date().getSeconds();
+            }, 1000);
+        }
           </script>
         </select>
             <button id="style" type="button" class="btn btn-light btn-lg dst-btn">
@@ -103,21 +112,6 @@
         </button>
         </div>
     </div>
-    <script>
-        function changeTimeZone() {
-            var timeZone = document.getElementById("timezone-label");
-            const str = new Date().toLocaleString("it-IT", { // this gives e.g [22-07-2018, 09:43:45]
-                timeZone: timeZone.value
-            });
-            var myArray = str.split(",");
-            var hour = myArray[1].split(":");
-
-            setInterval(function() {
-                document.getElementById("time").innerHTML =
-                    hour[0] + " : " + new Date().getMinutes() + " : " + new Date().getSeconds();
-            }, 1000);
-        }
-    </script>
 </body>
 
-</html>
+</html>ò
