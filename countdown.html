@@ -66,12 +66,24 @@
         .btn.active.focus {
             outline: none;
         }
+        
+        input {
+            background: none;
+            color: #fff;
+            border: none;
+            font-weight: bold;
+            width: 200px;
+        }
     </style>
 </head>
 
 <body class="unselectable">
     <div class="time-label">
-        <h1 style="font-weight: bold; font-size:170px;margin-left:0px;color:#fff;margin-bottom:100px;" class="stopwatch animate__animated animate__bounceInDown" id="stopwatch">00:00:00
+        <h1 style="font-weight: bold; font-size:170px;margin-left:0px;color:#fff;margin-bottom:100px;" class="stopwatch animate__animated animate__bounceInDown" id="stopwatch">
+            <div class="unselectable" style="display:flex;">
+                <input type="text" name="" id="min" maxlength="2" value="00">:
+                <input type="text" id="sec" maxlength="2" value="00">
+            </div>
         </h1>
         <button title="Start stopwatch" class="btn btn-success btn-lg btn-start animate__animated animate__bounceInLeft" id="startBtn">Start</button>
         <button title="Stop the stopwatch" style="margin-left:216px;" class="btn btn-warning btn-lg btn-stop dst-btn1 animate__animated animate__bounceInUp" id="stopBtn">Stop</button>
@@ -81,48 +93,25 @@
             <button type="button" class="btn btn-light btn-lg dst-btn">Alarm</button>
             <button type="button" class="btn btn-light btn-lg dst-btn">Clocks</button>
             <button id="style" type="button" class="btn btn-light btn-lg dst-btn" disabled>Style</button>
-            <button id="stopwatch" type="button " class="btn btn-primary btn-lg dst-btn ">Stopwatch</button>
+            <button id="stopwatch" type="button " class="btn btn-light btn-lg dst-btn ">Stopwatch</button>
             <button type="button" class="btn btn-light btn-lg dst-btn ">Countdown</button>
         </div>
     </div>
     <script>
+        const startBtn = document.getElementById('startBtn');
+        const resetBtn = document.getElementById('resetBtn');
         let output = document.getElementById('stopwatch');
-        let ms = 0;
-        let sec = 0;
-        let min = 0;
-
-        function timer() {
-            ms++;
-            if (ms >= 100) {
-                sec++
-                ms = 0
-            }
-            if (sec === 60) {
-                min++
-                sec = 0
-            }
-            if (min === 60) {
-                ms,
-                sec,
-                min = 0;
-            }
-
-            let milli = ms < 10 ? `0` + ms : ms;
-            let seconds = sec < 10 ? `0` + sec : sec;
-            let minute = min < 10 ? `0` + min : min;
-            let timer = `${minute}:${seconds}:${milli}`;
-            output.innerHTML = timer;
-        };
+        let time = 10;
 
         function start() {
-            time = setInterval(timer, 10);
+            countdown();
             $("#stopwatch").removeClass("blink_me");
             $("#startBtn").html('Start');
             $("#stopwatch").removeClass("animate__animated animate__bounceInDown");
         }
 
         function stop() {
-            clearInterval(time)
+            clearInterval(time);
             $("#stopwatch").addClass("blink_me");
             $("#startBtn").html('Restart');
             $("#stopwatch").removeClass("animate__animated animate__bounceInDown");
@@ -132,17 +121,30 @@
             $("#stopwatch").removeClass("blink_me");
             $("#startBtn").html('Start');
             $("#stopwatch").removeClass("animate__animated animate__bounceInDown");
-            ms = 0;
-            sec = 0;
-            min = 0;
-            output.innerHTML = `00:00:00`
+            timer = 10;
+            time = 10;
+            output.innerHTML = `0:10`
         }
-        const startBtn = document.getElementById('startBtn');
-        const stopBtn = document.getElementById('stopBtn');
-        const resetBtn = document.getElementById('resetBtn');
 
+        function countdown() {
+
+            let timer = setInterval(tick, 1000);
+
+            function tick() {
+                time--;
+                $("#stopBtn").click(function() {
+                    clearInterval(timer);
+                    $("#stopwatch").addClass("blink_me");
+                    $("#startBtn").html('Restart');
+                    $("#stopwatch").removeClass("animate__animated animate__bounceInDown");
+                });
+                if (time <= 0) {
+                    clearInterval(timer);
+                }
+                output.innerHTML = `${Math.floor(time / 60)}:${('0' + time % 60).slice(-2)}`;
+            }
+        }
         startBtn.addEventListener('click', start, false);
-        stopBtn.addEventListener('click', stop, false);
         resetBtn.addEventListener('click', reset, false);
     </script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js "></script>
