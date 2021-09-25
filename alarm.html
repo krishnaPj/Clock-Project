@@ -9,16 +9,20 @@
     <link rel="stylesheet" href="https://bit.ly/3CyJBte">
     <link rel="shortcut icon" href="http://cdn.onlinewebfonts.com/svg/img_461716.png">
     <link rel="stylesheet" href="style.css">
-
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js "></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.min.js "></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="script.js "></script>
 
     <style>
-        input{
+        input {
             width: 200px;
             outline: none;
             border: solid;
             color: white;
             background: none;
         }
+        
         body {
             background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
             background-size: 400% 400%;
@@ -26,6 +30,11 @@
             animation: gradient 15s ease infinite;
             height: 100vh;
             font: open-sans-serif;
+        }
+        
+        a {
+            text-decoration: none;
+            color: black;
         }
         
         @keyframes gradient {
@@ -57,7 +66,7 @@
         }
         
         .blink_me {
-            animation: blinker 1s linear infinite;
+            animation: blinker 1s linear 5;
         }
         
         @keyframes blinker {
@@ -74,95 +83,95 @@
         .btn.active.focus {
             outline: none;
         }
+        
+        input[type="datetime-local"]::-webkit-calendar-picker-indicator {
+            filter: invert(1);
+        }
+        
+        input {
+            background: none;
+            color: #fff;
+            border: none;
+            font-weight: bold;
+            outline: none;
+            width: 930px;
+            height: 200px;
+            caret-color: white;
+        }
     </style>
 </head>
 
 <body class="unselectable">
     <div class="time-label">
-        <h1 style="font-weight: bold; font-size:170px;margin-left:0px;color:#fff;margin-bottom:100px;" class="stopwatch animate__animated animate__bounceInDown" id="text/javascript">
-            <input type="text" maxlength="2" style="margin-left: 55px;" onkeypress="return isNumber(event)"> :
-            <input type="text" maxlength="2" onkeypress="return isNumber(event)">
+        <h1 style="font-weight: bold; font-size:70px;margin-left:0px;color:#fff;margin-bottom:100px;" class="stopwatch animate__animated animate__bounceInDown" id="text/javascript">
+            <input style="color: white; padding-left: -1200px;" id="alarmTime" type="datetime-local" required>
         </h1>
-        <button title="Start stopwatch" class="btn btn-success btn-lg btn-start animate__animated animate__bounceInLeft" id="alarmOptions">Start</button>
-        <button title="Stop the stopwatch" style="margin-left:216px;" class="btn btn-warning btn-lg btn-stop dst-btn1 animate__animated animate__bounceInUp" id="alarmOptions">Stop</button>
-        <button title="Reset the stopwatch" style="margin-left:230px;" class="btn btn-danger btn-lg btn-reset dst-btn1 animate__animated animate__bounceInRight" id="alarmOptions">Reset</button>
+        <button style="margin-left: 400px;" title="Start stopwatch" class="btn btn-success btn-lg btn-start animate__animated animate__bounceInLeft" id="alarmButton" onclick="setAlarm(this);">Start Alarm</button>
         <br>
         <div class="buttons animate__animated animate__bounceInUp" style="display: inline-block;">
-            <button type="button" class="btn btn-primary btn-lg dst-btn">Alarm</button>
-            <button type="button" class="btn btn-light btn-lg dst-btn">Clocks</button>
-            <button id="style" type="button" class="btn btn-light btn-lg dst-btn" >Style</button>
-            <button id="stopwatch" type="button " class="btn btn-light btn-lg dst-btn ">Stopwatch</button>
-            <button type="button" class="btn btn-light btn-lg dst-btn ">Countdown</button>
+            <button type="button" class="btn btn-primary btn-lg dst-btn"><a style="color: white;" href="alarm.html">Alarm</a></button>
+            <button type="button" class="btn btn-light btn-lg dst-btn"><a href="clocks.html">Clocks</a></button>
+            <button id="style" type="button" class="btn btn-light btn-lg dst-btn" disabled>Style</button>
+            <button id="stopwatch" type="button " class="btn btn-light btn-lg dst-btn "><a href="stopwatch.html">Stopwatch</a></button>
+            <button type="button" class="btn btn-light btn-lg dst-btn "><a href="countdown.html">Countdown</a></button>
         </div>
-  
-            
-            <script type="text/javascript">
-                
-                var alarmSound = new Audio();
-                alarmSound.src = 'alarm.mp3';
-                var alarmTimer;
-        
-                function setAlarm(button) {
-                    var ms = document.getElementById('alarmTime').valueAsNumber;
-                    if(isNaN(ms)) {
-                        alert('Data non valida');
-                        return;
-                    }
-        
-                    var alarm = new Date(ms);
-                    var alarmTime = new Date(alarm.getUTCFullYear(), alarm.getUTCMonth(), alarm.getUTCDate(),  alarm.getUTCHours(), alarm.getUTCMinutes(), alarm.getUTCSeconds());
-                    
-                    var differenceInMs = alarmTime.getTime() - (new Date()).getTime();
-        
-                    if(differenceInMs < 0) {
-                        alert('La data è passata');
-                        return;
-                    }
-        
-                    alarmTimer = setTimeout(initAlarm, differenceInMs);
-                    button.innerText = 'Stop';
-                    button.setAttribute('onclick', 'cancelAlarm(this);');
-                };
-        
-                function cancelAlarm(button) {
-                    clearTimeout(alarmTimer);
-                    button.innerText = 'Reset';
-                    button.setAttribute('onclick', 'setAlarm(this);')
-                };
-        
-                function initAlarm() {
-                    alarmSound.play();
-                    document.getElementById('alarmOptions').style.display = '';
-                };
-        
-                function stopAlarm() {
-                    alarmSound.pause();
-                    alarmSound.currentTime = 0;
-                    document.getElementById('alarmOptions').style.display = 'none';
-                    cancelAlarm(document.getElementById('alarmButton'));
-                };
-                function isNumber(evt) {
-                evt = (evt) ? evt : window.event;
-                var charCode = (evt.which) ? evt.which : evt.keyCode;
-                if (charCode > 31 && (charCode < 48 || charCode > 57)) {
-                return false;
+
+
+        <script type="text/javascript">
+            var alarmSound = new Audio();
+            alarmSound.src = 'alarm.mp3';
+            var alarmTimer;
+
+            const now = (new Date().toLocaleString("sv-SE") + '').replace(' ', 'T');
+            $("#alarmTime").val(now)
+
+            function setAlarm(button) {
+                var ms = document.getElementById('alarmTime').valueAsNumber;
+                if (isNaN(ms)) {
+                    alert('Invalid Date');
+                    return;
                 }
-                return true;
-        }
-        
-            </script>
 
-        </div>
+                var alarm = new Date(ms);
+                var alarmTime = new Date(alarm.getUTCFullYear(), alarm.getUTCMonth(), alarm.getUTCDate(), alarm.getUTCHours(), alarm.getUTCMinutes(), alarm.getUTCSeconds());
+                console.log(alarm);
+                console.log(alarmTime);
+                var differenceInMs = alarmTime.getTime() - (new Date()).getTime();
 
+                if (differenceInMs < 0) {
+                    alert('Specified time is already passed');
+                    return;
+                }
 
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js "></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.min.js "></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <script src="script.js "></script>
+                alarmTimer = setTimeout(initAlarm, differenceInMs);
+                $("#alarmButton").removeClass("btn-success");
+                $("#alarmButton").addClass("btn-danger");
+                button.innerText = 'Cancel Alarm';
+                button.setAttribute('onclick', 'cancelAlarm(this);');
+            };
 
+            function cancelAlarm(button) {
+                clearTimeout(alarmTimer);
+                $("#alarmButton").removeClass("btn-danger");
+                $("#alarmButton").addClass("btn-success");
+                button.innerText = 'Start Alarm ';
+                button.setAttribute('onclick', 'setAlarm(this);')
+            };
 
+            function initAlarm() {
+                alarmSound.play();
+                $("#alarmTime").addClass("blink_me");
+            };
 
-    
+            function stopAlarm() {
+                alarmSound.pause();
+                alarmSound.currentTime = 0;
+                document.getElementById('alarmOptions').style.display = 'none';
+                cancelAlarm(document.getElementById('alarmButton'));
+            };
+        </script>
+
+    </div>
 </body>
 
 </html>

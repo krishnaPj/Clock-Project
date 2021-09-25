@@ -27,6 +27,16 @@
             color: black;
         }
         
+        .blink_me2 {
+            animation: blinker 0.5s linear 5;
+        }
+        
+        @keyframes blinker {
+            50% {
+                opacity: 0;
+            }
+        }
+        
         @keyframes gradient {
             0% {
                 background-position: 0% 50%;
@@ -44,14 +54,14 @@
 <body class="unselectable">
     <div class="time-label">
 
-        <div id="digital-clock">
+        <div id="digital-clock" class="animate__animated animate__bounceInDown">
             <span id="time" style="font-size: 170px; font-weight: bold; color: #fff;"></span>
         </div><br /><br /><br />
         <div class="buttons animate__animated animate__bounceInUp" style="display: inline-block;">
             <button type="button" class="btn btn-light btn-lg dst-btn">
           Alarm
         </button>
-            <select onchange="changeTimeZone();" style="
+            <select onchange="changeTimeZone();" title="Select a timezone" style="
             padding: 10px;
             border-radius: 5px;
             padding-bottom: -2px;

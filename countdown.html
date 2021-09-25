@@ -108,7 +108,7 @@
         <h1 style="font-weight: bold; font-size:170px;margin-left:0px;color:#fff;margin-bottom:100px;" class="stopwatch animate__animated animate__bounceInDown" id="stopwatch">
             <div class="unselectable" style="display:flex;">
                 <input type="text" id="min" placeholder="2" maxlength="2" onkeypress="return isNumber(event)"> :
-                <input type="text" id="sec" maxlength="2" placeholder="00" onkeypress="return isNumber(event)">
+                <input style="margin-left:70px;" type="text" id="sec" maxlength="2" placeholder="00" onkeypress="return isNumber(event)">
             </div>
         </h1>
         <button title="Start stopwatch" class="btn btn-success btn-lg btn-start animate__animated animate__bounceInLeft" id="startBtn">Start</button>
@@ -116,11 +116,11 @@
         <button title="Reset the stopwatch" style="margin-left:230px;" class="btn btn-danger btn-lg btn-reset dst-btn1 animate__animated animate__bounceInRight" id="resetBtn">Reset</button>
         <br>
         <div class="buttons animate__animated animate__bounceInUp" style="display: inline-block;">
-            <button type="button" class="btn btn-light btn-lg dst-btn">Alarm</button>
-            <button type="button" class="btn btn-light btn-lg dst-btn">Clocks</button>
+            <button type="button" class="btn btn-light btn-lg dst-btn"><a href="alarm.html">Alarm</a></button>
+            <button type="button" class="btn btn-light btn-lg dst-btn"><a href="clocks.html">Clocks</a></button>
             <button id="style" type="button" class="btn btn-light btn-lg dst-btn" disabled>Style</button>
-            <button id="stopwatch" type="button " class="btn btn-light btn-lg dst-btn ">Stopwatch</button>
-            <button type="button" class="btn btn-primary btn-lg dst-btn ">Countdown</button>
+            <button id="stopwatch" type="button " class="btn btn-light btn-lg dst-btn "><a href="stopwatch.html">Stopwatch</a></button>
+            <button type="button" class="btn btn-primary btn-lg dst-btn "><a style="color: white;" href="countdown.html">Countdown</a></button>
         </div>
     </div>
     <script>
@@ -142,6 +142,10 @@
                 var timeA = parseInt($(this).val()) || 0;
                 time = time + timeA;
                 console.log(time);
+                countdown();
+                $("#stopwatch").removeClass("blink_me");
+                $("#startBtn").html('Retart');
+                $("#stopwatch").removeClass("animate__animated animate__bounceInDown");
             }
         });
 
@@ -176,7 +180,7 @@
             $("#stopwatch").removeClass("animate__animated animate__bounceInDown");
             timer = timeApp;
             time = timeApp;
-            output.innerHTML = `${Math.floor(time / 60)}:${('0' + time % 60).slice(-2)}`;
+            output.innerHTML = `${Math.floor(time / 60)} : ${('0' + time % 60).slice(-2)}`;
         }
 
         function countdown() {
@@ -194,7 +198,7 @@
                     clearInterval(timer);
                     time = timeApp;
                 }
-                output.innerHTML = `${Math.floor(time / 60)}:${('0' + time % 60).slice(-2)}`;
+                output.innerHTML = `${Math.floor(time / 60)} : ${('0' + time % 60).slice(-2)}`;
             }
         }
         startBtn.addEventListener('click', start, false);
