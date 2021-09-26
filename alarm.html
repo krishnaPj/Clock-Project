@@ -106,24 +106,35 @@
         <h1 style="font-weight: bold; font-size:70px;margin-left:0px;color:#fff;margin-bottom:100px;" class="stopwatch animate__animated animate__bounceInDown" id="text/javascript">
             <input style="color: white; padding-left: -1200px;" id="alarmTime" type="datetime-local" required>
         </h1>
+        <span style="margin-left: 180px; color: white; font-size: 30px; visibility: hidden" id="countdown">The alarm will sound in </span><br>
+        <br>
         <button style="margin-left: 400px;" title="Start stopwatch" class="btn btn-success btn-lg btn-start animate__animated animate__bounceInLeft" id="alarmButton" onclick="setAlarm(this);">Start Alarm</button>
+
         <br>
         <div class="buttons animate__animated animate__bounceInUp" style="display: inline-block;">
             <button type="button" class="btn btn-primary btn-lg dst-btn"><a style="color: white;" href="alarm.html">Alarm</a></button>
             <button type="button" class="btn btn-light btn-lg dst-btn"><a href="clocks.html">Clocks</a></button>
-            <button id="style" type="button" class="btn btn-light btn-lg dst-btn" disabled>Style</button>
+            <button id="style" type="button" class="btn btn-light btn-lg dst-btn"><a href="index.html">Home</a></button>
             <button id="stopwatch" type="button " class="btn btn-light btn-lg dst-btn "><a href="stopwatch.html">Stopwatch</a></button>
             <button type="button" class="btn btn-light btn-lg dst-btn "><a href="countdown.html">Countdown</a></button>
         </div>
 
 
         <script type="text/javascript">
+            console.warn = () => {};
+            console.info = () => {};
+            console.error = () => {};
+
             var alarmSound = new Audio();
             alarmSound.src = 'alarm.mp3';
             var alarmTimer;
 
             const now = (new Date().toLocaleString("sv-SE") + '').replace(' ', 'T');
-            $("#alarmTime").val(now)
+            $("#alarmTime").val(now);
+            const input = document.getElementById('alarmTime');
+            input.focus();
+            input.setSelectionRange(0, 3);
+            const button = document.getElementById('alarmButton');
 
             function setAlarm(button) {
                 var ms = document.getElementById('alarmTime').valueAsNumber;
@@ -131,15 +142,41 @@
                     alert('Invalid Date');
                     return;
                 }
-
                 var alarm = new Date(ms);
                 var alarmTime = new Date(alarm.getUTCFullYear(), alarm.getUTCMonth(), alarm.getUTCDate(), alarm.getUTCHours(), alarm.getUTCMinutes(), alarm.getUTCSeconds());
-                console.log(alarm);
-                console.log(alarmTime);
+
                 var differenceInMs = alarmTime.getTime() - (new Date()).getTime();
+                time = Math.floor(differenceInMs / 1000);
+                document.getElementById("countdown").style.visibility = "visible";
+                setInterval(function tick() {
+                    time--;
+                    if (time <= 0) {
+                        clearInterval(timer);
+                    }
+                    if (Math.floor(time / 3600) == 0) {
+                        document.getElementById('countdown').innerHTML = "The alarm will sound in " +
+                            `${Math.floor(time % 3600 / 60)}  mins : ${('0' + time % 3600 % 60).slice(-2)} secs`;
+                    } else if (Math.floor(time / 3600) == 0 || Math.floor(time % 3600 / 60) == 0) {
+                        document.getElementById('countdown').innerHTML = "The alarm will ring in " +
+                            `${('0' + time % 3600 % 60).slice(-2)} secs`;
+                    } else if (Math.floor(time % 3600 / 60) == 0) {
+                        document.getElementById('countdown').innerHTML = "The alarm will ring in " +
+                            `${('0' + time % 3600 % 60).slice(-2)} secs`;
+                    } else {
+                        document.getElementById('countdown').innerHTML = "The alarm will ring in " +
+                            `${Math.floor(time / 3600)} hrs : ${Math.floor(time % 3600 / 60)}  mins : ${('0' + time % 3600 % 60).slice(-2)} secs`;
+                    }
+                }, 1000);
 
                 if (differenceInMs < 0) {
-                    alert('Specified time is already passed');
+                    alert('The specified time is already passed!');
+                    console.log('The specified time is already passed!');
+                    document.getElementById("countdown").style.visibility = "hidden";
+                    clearTimeout(alarmTimer);
+                    $("#alarmButton").removeClass("btn-danger");
+                    $("#alarmButton").addClass("btn-success");
+                    button.innerText = 'Start Alarm ';
+                    button.setAttribute('onclick', 'setAlarm(this);')
                     return;
                 }
 
@@ -152,14 +189,18 @@
 
             function cancelAlarm(button) {
                 clearTimeout(alarmTimer);
+                document.getElementById("countdown").style.visibility = "hidden";
                 $("#alarmButton").removeClass("btn-danger");
                 $("#alarmButton").addClass("btn-success");
                 button.innerText = 'Start Alarm ';
-                button.setAttribute('onclick', 'setAlarm(this);')
+                button.setAttribute('onclick', 'setAlarm(this);');
+                const now = (new Date().toLocaleString("sv-SE") + '').replace(' ', 'T');
+                $("#alarmTime").val(now);
             };
 
             function initAlarm() {
                 alarmSound.play();
+                document.getElementById("countdown").style.visibility = "hidden";
                 $("#alarmTime").addClass("blink_me");
             };
 

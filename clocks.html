@@ -59,7 +59,7 @@
         </div><br /><br /><br />
         <div class="buttons animate__animated animate__bounceInUp" style="display: inline-block;">
             <button type="button" class="btn btn-light btn-lg dst-btn">
-          Alarm
+          <a href="alarm.html">Alarm</a>
         </button>
             <select onchange="changeTimeZone();" title="Select a timezone" style="
             padding: 10px;
@@ -67,9 +67,7 @@
             padding-bottom: -2px;
             width: 200px;
           " class="btn btn-primary dst-btn" id="timezone-label" aria-required="true">
-          <!-- <script src="script.js "></script> -->
           <script>
-            // Load data from file ['Europe/Rome, Europe/Amsterdam, etc.'] into combobox
             $.ajax({
               url:
                 "https://gist.githubusercontent.com/diogocapela/12c6617fc87607d11fd62d2a4f42b02a/raw/8b5abde6f9c7d5570df3a2aa22325d7d20a8b5d7/moment-js-timezones.txt",
@@ -112,13 +110,13 @@
           </script>
         </select>
             <button id="style" type="button" class="btn btn-light btn-lg dst-btn">
-          Style
+          <a href="index.html">Home</a>
         </button>
             <button id="stopwatch" type="button " class="btn btn-light btn-lg dst-btn">
           <a href="stopwatch.html">Stopwatch</a>
         </button>
             <button type="button" class="btn btn-light btn-lg dst-btn">
-          Countdown
+          <a href="countdown.html">Countdown</a>
         </button>
         </div>
     </div>
