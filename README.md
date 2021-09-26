@@ -11,7 +11,7 @@ This is the first project of a long series belonging to the internship in an Ita
 
 -----------------
 
-Explanation of each HTML file:
+## Explanation of HTML files 😃:
 
 In the **index.html** file you will find our homepage. It only contains a digital clock apparently, but if you try to click the ***style*** button the time changes appearance and becomes an analog clock.  
 
