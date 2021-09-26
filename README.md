@@ -15,7 +15,7 @@ Explanation of each HTML file:
 
 In the **index.html** file you will find our homepage. It only contains a digital clock apparently, but if you try to click the ***style*** button the time changes appearance and becomes an analog clock.  
 
-In the **alarm.html** file you will find the alarm system. You have to choose a date after the current date/time and click on ***start alarm****. You will be shown a label with the time to go in hours, minutes and seconds until the alarm sounds. You can also choose to cancel the alarm when you want. We've chosen a bad alarm ringtone for now, but we promise to fix it in the future version. 
+In the **alarm.html** file you will find the alarm system. You have to choose a date after the current date/time and click on ***start alarm***. You will be shown a label with the time to go in hours, minutes and seconds until the alarm sounds. You can also choose to cancel the alarm when you want. We've chosen a bad alarm ringtone for now, but we promise to fix it in the future version. 
 
 In the **stopwatch.html** file you will find the stopwatch. It only contains minutes, seconds and milliseconds for now, but we'll also add hours in future version. Here you can start, stop or reset the stopwatch when you want. 
 
