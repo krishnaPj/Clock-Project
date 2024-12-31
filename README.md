@@ -1,23 +1,59 @@
-# Clock-Project
+# Clockify - Project Overview
 
-This is the first project of a long series belonging to the internship in an Italian company. We are a team of only 2 people but we are not lacking in consistency and motivation. This project focuses on the clock and its many features like countdown timer, stopwatch and alarm system. **Within a few days, we'll add comments to the various files in this repository and we will always keep this file updated, if you have any questions, suggestions or anything else, do not hesitate to contact us.** We developed this web application in just a few days (and so ***it can contain some bugs yet***) with:
+Clockify is a simple yet feature-rich project centered around clocks and their functionalities, including an alarm, countdown timer, and stopwatch. This project is a part of our internship experience, developed by a dedicated team of two within two days. We aim to enhance this project progressively, improving its usability and resolving any bugs.
 
-- HTML5
-- CSS3
-- JavaScript
-- JQuery
-- Ajax
-- Boostrap 5 
+---
 
------------------
+## Technologies Used 🛠️
 
-## Explanation of HTML files 😃:
+- **HTML5**
+- **CSS3**
+- **JavaScript**
+- **Tailwind CSS**
 
-In the **index.html** file you will find our homepage. It only contains a digital clock apparently, but if you try to click the ***style*** button the time changes appearance and becomes an analog clock.  
+---
 
-In the **alarm.html** file you will find the alarm system. You have to choose a date after the current date/time and click on ***start alarm***. You will be shown a label with the time to go in hours, minutes and seconds until the alarm sounds. You can also choose to cancel the alarm when you want. We've chosen a bad alarm ringtone for now, but we promise to fix it in the future version. 
+## Features Overview 📖
 
-In the **stopwatch.html** file you will find the stopwatch. It only contains minutes, seconds and milliseconds for now, but we'll also add hours in future version. Here you can start, stop or reset the stopwatch when you want. 
+### **1. Homepage (`index.html`)**
+The homepage features a **dynamic clock** that switches between digital and analog styles when you click the **toggle style** button. It's a simple but interactive entry point to explore the app's functionality.
 
-while in the countdown.html file you will find the countdown system. You have to set the minutes and seconds of the stopwatch to your liking, otherwise it will start from 2 minutes. Like the stopwatch, here too you have the possibility to start, stop and reset as you wish the countdown. 
+---
 
+### **2. Alarm System (`alarm.html`)**
+The alarm system allows you to:
+- Set a future date and time.
+- View the countdown to the alarm in **hours, minutes, and seconds**.
+- Cancel the alarm if needed.
+
+When the alarm rings, a notification is displayed. The design includes user-friendly buttons and a clean interface for seamless operation.
+
+---
+
+### **3. Stopwatch (`stopwatch.html`)**
+The stopwatch tracks time with:
+- **Minutes**
+- **Seconds**
+- **Milliseconds**
+
+You can start, stop, and reset the timer at your convenience. Future updates will include extended tracking for **hours**.
+
+---
+
+### **4. Countdown Timer (`countdown.html`)**
+Set your desired countdown duration in minutes and seconds or use the default **2-minute timer**. Like the stopwatch, the countdown allows you to start, pause, and reset the timer easily.
+
+---
+
+## Planned Improvements 🚀
+
+- **Enhanced UI/UX**: Refined visuals and interactions.
+- **Accessibility Features**: Making the app more inclusive.
+- **Bug Fixes and Optimizations**: Addressing known issues and improving performance.
+- **Additional Functionality**: Adding features like custom themes, audio alerts, and more.
+
+---
+
+## Contact Us 📧
+
+We welcome feedback, suggestions, and ideas! Stay tuned as we continue to enhance Clockify with new features and improvements.

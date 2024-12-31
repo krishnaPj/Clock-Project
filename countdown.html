@@ -5,24 +5,10 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://bit.ly/3CyJBte">
-    <link rel="shortcut icon" href="http://cdn.onlinewebfonts.com/svg/img_461716.png">
     <title>Clockify</title>
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js "></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.min.js "></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <link rel="shortcut icon" href="http://cdn.onlinewebfonts.com/svg/img_461716.png">
+    <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        body {
-            background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
-            background-size: 400% 400%;
-            opacity: 0.9;
-            animation: gradient 15s ease infinite;
-            height: 100vh;
-            font: open-sans-serif;
-        }
-        
         @keyframes gradient {
             0% {
                 background-position: 0% 50%;
@@ -34,175 +20,125 @@
                 background-position: 0% 50%;
             }
         }
-        
-        .animate__animated.animate__bounceInDown {
-            --animate-duration: 3s;
+
+        body {
+            background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+            background-size: 400% 400%;
+            animation: gradient 15s ease infinite;
+            height: 100vh;
+            font-family: 'Open Sans', sans-serif;
         }
-        
-        .animate__animated.animate__bounceInLeft {
-            --animate-duration: 2s;
-        }
-        
-        .animate__animated.animate__bounceInUp {
-            --animate-duration: 2s;
-        }
-        
-        .animate__animated.animate__bounceInRight {
-            --animate-duration: 2s;
-        }
-        
-        .blink_me {
+
+        .blink {
             animation: blinker 1s linear infinite;
         }
-        
-        .blink_me2 {
-            animation: blinker 0.5s linear 5;
-        }
-        
+
         @keyframes blinker {
             50% {
                 opacity: 0;
             }
         }
-        
-         ::placeholder {
-            /* Chrome, Firefox, Opera, Safari 10.1+ */
-            color: white;
-            opacity: 1;
-            /* Firefox */
-        }
-        
-         :-ms-input-placeholder {
-            /* Internet Explorer 10-11 */
-            color: white;
-        }
-        
-         ::-ms-input-placeholder {
-            /* Microsoft Edge */
-            color: white;
-        }
-        
-        .btn:focus,
-        .btn:active:focus,
-        .btn.active:focus,
-        .btn.focus,
-        .btn:active.focus,
-        .btn.active.focus {
-            outline: none;
-        }
-        
+
         input {
             background: none;
             color: #fff;
             border: none;
             font-weight: bold;
             outline: none;
-            width: 200px;
             caret-color: white;
         }
     </style>
 </head>
 
-<body class="unselectable">
-    <div class="time-label">
-        <h1 style="font-weight: bold; font-size:170px;margin-left:0px;color:#fff;margin-bottom:100px;" class="stopwatch animate__animated animate__bounceInDown" id="stopwatch">
-            <div class="unselectable" style="display:flex;">
-                <input type="text" id="min" placeholder="2" maxlength="2" onkeypress="return isNumber(event)"> :
-                <input style="margin-left:70px;" type="text" id="sec" maxlength="2" placeholder="00" onkeypress="return isNumber(event)">
-            </div>
-        </h1>
-        <button title="Start stopwatch" class="btn btn-success btn-lg btn-start animate__animated animate__bounceInLeft" id="startBtn">Start</button>
-        <button title="Stop the stopwatch" style="margin-left:216px;" class="btn btn-warning btn-lg btn-stop dst-btn1 animate__animated animate__bounceInUp" id="stopBtn">Stop</button>
-        <button title="Reset the stopwatch" style="margin-left:230px;" class="btn btn-danger btn-lg btn-reset dst-btn1 animate__animated animate__bounceInRight" id="resetBtn">Reset</button>
-        <br>
-        <div class="buttons animate__animated animate__bounceInUp" style="display: inline-block;">
-            <button type="button" class="btn btn-light btn-lg dst-btn"><a href="alarm.html">Alarm</a></button>
-            <button type="button" class="btn btn-light btn-lg dst-btn"><a href="clocks.html">Clocks</a></button>
-            <button id="style" type="button" class="btn btn-light btn-lg dst-btn"><a href="index.html">Home</a></button>
-            <button id="stopwatch" type="button " class="btn btn-light btn-lg dst-btn "><a href="stopwatch.html">Stopwatch</a></button>
-            <button type="button" class="btn btn-primary btn-lg dst-btn "><a style="color: white;" href="countdown.html">Countdown</a></button>
+<body class="flex flex-col items-center justify-center text-white px-4">
+    <header class="mb-8 text-center">
+        <h1 class="text-4xl font-bold">Clockify</h1>
+        <p class="text-lg mt-2">Your Ultimate Countdown Timer</p>
+    </header>
+
+    <main class="w-full max-w-lg text-center">
+        <!-- Timer Input -->
+        <div class="flex justify-center items-center gap-5 mb-6">
+            <input type="text" id="min" placeholder="MM" maxlength="2" class="text-5xl w-16 text-center border-b-2 border-white focus:outline-none" onkeypress="return isNumber(event)"> :
+            <input type="text" id="sec" placeholder="SS" maxlength="2" class="text-5xl w-16 text-center border-b-2 border-white focus:outline-none" onkeypress="return isNumber(event)">
         </div>
-    </div>
+
+        <!-- Timer Display -->
+        <h1 id="stopwatch" class="text-6xl font-extrabold mb-10">00:00</h1>
+
+        <!-- Timer Controls -->
+        <div class="flex justify-center gap-4">
+            <button id="startBtn" class="px-6 py-3 bg-green-500 text-white rounded-lg hover:bg-green-600">Start</button>
+            <button id="stopBtn" class="px-6 py-3 bg-yellow-500 text-white rounded-lg hover:bg-yellow-600">Stop</button>
+            <button id="resetBtn" class="px-6 py-3 bg-red-500 text-white rounded-lg hover:bg-red-600">Reset</button>
+        </div>
+    </main>
+
+    <footer class="mt-10 flex flex-wrap justify-center gap-4">
+        <a href="alarm.html" class="px-6 py-3 bg-gray-100 text-gray-800 rounded-lg shadow hover:bg-gray-200">Alarm</a>
+        <a href="clocks.html" class="px-6 py-3 bg-gray-100 text-gray-800 rounded-lg shadow hover:bg-gray-200">Clocks</a>
+        <a href="index.html" class="px-6 py-3 bg-gray-100 text-gray-800 rounded-lg shadow hover:bg-gray-200">Home</a>
+        <a href="stopwatch.html" class="px-6 py-3 bg-gray-100 text-gray-800 rounded-lg shadow hover:bg-blue-600">Stopwatch</a>
+        <a href="countdown.html" class="px-6 py-3 bg-gray-100 text-gray-800 rounded-lg shadow hover:bg-gray-200">Countdown</a>
+    </footer>
+
     <script>
         const startBtn = document.getElementById('startBtn');
+        const stopBtn = document.getElementById('stopBtn');
         const resetBtn = document.getElementById('resetBtn');
-        let output = document.getElementById('stopwatch');
+        const output = document.getElementById('stopwatch');
 
-        let time = 120;
-
-        $('#min').on('keypress', function(event) {
-            if (event.which === 13) {
-                var timeA = parseInt($(this).val()) || 0;
-                time = (timeA * 60);
-                console.log(time);
-            }
-        });
-        $('#sec').on('keypress', function(event) {
-            if (event.which === 13) {
-                var timeA = parseInt($(this).val()) || 0;
-                time = time + timeA;
-                console.log(time);
-                countdown();
-                $("#stopwatch").removeClass("blink_me");
-                $("#startBtn").html('Retart');
-                $("#stopwatch").removeClass("animate__animated animate__bounceInDown");
-            }
-        });
-
-        timeApp = time;
+        let time = 0;
+        let timerInterval;
 
         function isNumber(evt) {
-            evt = (evt) ? evt : window.event;
-            var charCode = (evt.which) ? evt.which : evt.keyCode;
-            if (charCode > 31 && (charCode < 48 || charCode > 57)) {
-                return false;
-            }
-            return true;
+            const charCode = evt.which || evt.keyCode;
+            return !(charCode > 31 && (charCode < 48 || charCode > 57));
         }
 
         function start() {
-            countdown();
-            $("#stopwatch").removeClass("blink_me");
-            $("#startBtn").html('Start');
-            $("#stopwatch").removeClass("animate__animated animate__bounceInDown");
+            const minutes = parseInt(document.getElementById('min').value) || 0;
+            const seconds = parseInt(document.getElementById('sec').value) || 0;
+            time = minutes * 60 + seconds;
+
+            if (time > 0) {
+                clearInterval(timerInterval);
+                timerInterval = setInterval(countdown, 1000);
+                output.classList.remove('blink');
+            }
         }
 
         function stop() {
-            clearInterval(time);
-            $("#stopwatch").addClass("blink_me");
-            $("#startBtn").html('Restart');
-            $("#stopwatch").removeClass("animate__animated animate__bounceInDown");
+            clearInterval(timerInterval);
+            output.classList.add('blink');
         }
 
         function reset() {
-            $("#stopwatch").removeClass("blink_me");
-            $("#startBtn").html('Start');
-            $("#stopwatch").removeClass("animate__animated animate__bounceInDown");
-            timer = timeApp;
-            time = timeApp;
-            output.innerHTML = `${Math.floor(time / 60)} : ${('0' + time % 60).slice(-2)}`;
+            clearInterval(timerInterval);
+            time = 0;
+            output.textContent = '00:00';
+            document.getElementById('min').value = '';
+            document.getElementById('sec').value = '';
+            output.classList.remove('blink');
         }
 
         function countdown() {
-            let timer = setInterval(tick, 1000);
-
-            function tick() {
-                time--;
-                $("#stopBtn").click(function() {
-                    clearInterval(timer);
-                    $("#stopwatch").addClass("blink_me");
-                    $("#startBtn").html('Restart');
-                    $("#stopwatch").removeClass("animate__animated animate__bounceInDown");
-                });
-                if (time <= 0) {
-                    clearInterval(timer);
-                    time = timeApp;
-                }
-                output.innerHTML = `${Math.floor(time / 60)} : ${('0' + time % 60).slice(-2)}`;
+            if (time <= 0) {
+                clearInterval(timerInterval);
+                output.textContent = '00:00';
+                output.classList.add('blink');
+                return;
             }
+
+            time--;
+            const minutes = Math.floor(time / 60);
+            const seconds = time % 60;
+            output.textContent = `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
         }
-        startBtn.addEventListener('click', start, false);
-        resetBtn.addEventListener('click', reset, false);
+
+        startBtn.addEventListener('click', start);
+        stopBtn.addEventListener('click', stop);
+        resetBtn.addEventListener('click', reset);
     </script>
 </body>
 

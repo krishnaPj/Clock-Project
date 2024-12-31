@@ -2,41 +2,13 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Clockify</title>
-    <link rel="stylesheet" href="https://bit.ly/3CyJBte">
-    <link rel="shortcut icon" href="http://cdn.onlinewebfonts.com/svg/img_461716.png" />
-    <link rel="stylesheet" href="style.css">
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js "></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.min.js "></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clockify - World Clocks</title>
+    <link rel="shortcut icon" href="http://cdn.onlinewebfonts.com/svg/img_461716.png">
+    <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        body {
-            background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
-            background-size: 400% 400%;
-            animation: gradient 15s ease infinite;
-            height: 100vh;
-            font: open-sans-serif;
-        }
-        
-        a {
-            text-decoration: none;
-            color: black;
-        }
-        
-        .blink_me2 {
-            animation: blinker 0.5s linear 5;
-        }
-        
-        @keyframes blinker {
-            50% {
-                opacity: 0;
-            }
-        }
-        
         @keyframes gradient {
             0% {
                 background-position: 0% 50%;
@@ -48,78 +20,86 @@
                 background-position: 0% 50%;
             }
         }
+
+        body {
+            background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+            background-size: 400% 400%;
+            animation: gradient 15s ease infinite;
+            height: 100vh;
+            font-family: 'Open Sans', sans-serif;
+        }
+
+        .unselectable {
+            user-select: none;
+        }
     </style>
 </head>
 
-<body class="unselectable">
-    <div class="time-label">
+<body class="flex flex-col items-center justify-center text-white px-4">
+    <header class="mb-8 text-center">
+        <h1 class="text-4xl font-bold">Clockify</h1>
+        <p class="text-lg mt-2">Discover Time Across the Globe</p>
+    </header>
 
-        <div id="digital-clock" class="animate__animated animate__bounceInDown">
-            <span id="time" style="font-size: 170px; font-weight: bold; color: #fff;"></span>
-        </div><br /><br /><br />
-        <div class="buttons animate__animated animate__bounceInUp" style="display: inline-block;">
-            <button type="button" class="btn btn-light btn-lg dst-btn">
-          <a href="alarm.html">Alarm</a>
-        </button>
-            <select onchange="changeTimeZone();" title="Select a timezone" style="
-            padding: 10px;
-            border-radius: 5px;
-            padding-bottom: -2px;
-            width: 200px;
-          " class="btn btn-primary dst-btn" id="timezone-label" aria-required="true">
-          <script>
-            $.ajax({
-              url:
-                "https://gist.githubusercontent.com/diogocapela/12c6617fc87607d11fd62d2a4f42b02a/raw/8b5abde6f9c7d5570df3a2aa22325d7d20a8b5d7/moment-js-timezones.txt",
-              success: function (data) {
-                var splitData = data.split("\n");
-                for (i = 0; i <= splitData.length; i++) {
-                  $("#timezone-label").append(
-                    "<option value='" +
-                      splitData[i] +
-                      "'>" +
-                      splitData[i] +
-                      "</option>"
-                  );
-                }
-              }
-            });
-            
-            $(document).ready(function() {
-                $("#timezone-label").val("Europe/Rome");
-                changeTimeZone();
-            });
-        
-        var myArray;
-        var hour;
-
-        function changeTimeZone() {
-            var timeZone = document.getElementById("timezone-label");
-            const str = new Date().toLocaleString("it-IT", { 
-                timeZone: timeZone.value
-            });
-            myArray = [];
-            hour = [];
-            myArray = str.split(",");
-            hour = myArray[1].split(":");
-            setInterval(function() {
-                document.getElementById("time").innerHTML =
-                    hour[0] + " : " + new Date().getMinutes() + " : " + new Date().getSeconds();
-            }, 1000);
-        }
-          </script>
-        </select>
-            <button id="style" type="button" class="btn btn-light btn-lg dst-btn">
-          <a href="index.html">Home</a>
-        </button>
-            <button id="stopwatch" type="button " class="btn btn-light btn-lg dst-btn">
-          <a href="stopwatch.html">Stopwatch</a>
-        </button>
-            <button type="button" class="btn btn-light btn-lg dst-btn">
-          <a href="countdown.html">Countdown</a>
-        </button>
+    <main class="w-full max-w-lg text-center">
+        <!-- City List -->
+        <div class="mb-6">
+            <h2 class="text-2xl font-semibold mb-4">Select a City</h2>
+            <div class="grid grid-cols-2 gap-4">
+                <button class="px-4 py-2 bg-gray-100 text-gray-800 rounded-lg shadow hover:bg-gray-200" onclick="showTime('New York', -5)">New York</button>
+                <button class="px-4 py-2 bg-gray-100 text-gray-800 rounded-lg shadow hover:bg-gray-200" onclick="showTime('London', 0)">London</button>
+                <button class="px-4 py-2 bg-gray-100 text-gray-800 rounded-lg shadow hover:bg-gray-200" onclick="showTime('Tokyo', 9)">Tokyo</button>
+                <button class="px-4 py-2 bg-gray-100 text-gray-800 rounded-lg shadow hover:bg-gray-200" onclick="showTime('Sydney', 11)">Sydney</button>
+                <button class="px-4 py-2 bg-gray-100 text-gray-800 rounded-lg shadow hover:bg-gray-200" onclick="showTime('Mumbai', 5.5)">Mumbai</button>
+                <button class="px-4 py-2 bg-gray-100 text-gray-800 rounded-lg shadow hover:bg-gray-200" onclick="showTime('Dubai', 4)">Dubai</button>
+            </div>
         </div>
-    </div>
+
+        <!-- Display Selected City Time -->
+        <div id="city-time" class="text-center mt-8">
+            <h2 id="city-name" class="text-3xl font-bold"></h2>
+            <p id="local-time" class="text-6xl font-extrabold leading-none"></p>
+        </div>
+    </main>
+
+    <footer class="mt-10 flex flex-wrap justify-center gap-4">
+        <a href="alarm.html" class="px-6 py-3 bg-gray-100 text-gray-800 rounded-lg shadow hover:bg-gray-200">Alarm</a>
+        <a href="clocks.html" class="px-6 py-3 bg-blue-500 text-white rounded-lg shadow hover:bg-blue-600">Clocks</a>
+        <a href="index.html" class="px-6 py-3 bg-gray-100 text-gray-800 rounded-lg shadow hover:bg-gray-200">Home</a>
+        <a href="stopwatch.html" class="px-6 py-3 bg-gray-100 text-gray-800 rounded-lg shadow hover:bg-gray-200">Stopwatch</a>
+        <a href="countdown.html" class="px-6 py-3 bg-gray-100 text-gray-800 rounded-lg shadow hover:bg-gray-200">Countdown</a>
+    </footer>
+
+    <script>
+        let timeInterval; // Global variable to store the interval ID
+
+        function showTime(city, offset) {
+            // Clear the previous interval if it exists
+            if (timeInterval) {
+                clearInterval(timeInterval);
+            }
+
+            // Set city name
+            document.getElementById('city-name').textContent = `Current Time in ${city}`;
+
+            const updateTime = () => {
+                const now = new Date();
+                const utc = now.getTime() + now.getTimezoneOffset() * 60000;
+                const localTime = new Date(utc + (3600000 * offset));
+                document.getElementById('local-time').textContent = localTime.toLocaleTimeString('en-US', {
+                    hour: '2-digit',
+                    minute: '2-digit',
+                    second: '2-digit',
+                    hour12: true
+                });
+            };
+
+            // Update time immediately and then start the interval
+            updateTime();
+            timeInterval = setInterval(updateTime, 1000);
+        }
+    </script>
+
 </body>
 
-</html>ò
+</html>

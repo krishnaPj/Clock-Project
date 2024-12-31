@@ -1,42 +1,14 @@
 <!DOCTYPE html>
-<html lang="it-IT">
+<html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Clockify</title>
-    <link rel="stylesheet" href="https://bit.ly/3CyJBte">
+    <title>Clockify - Alarm</title>
     <link rel="shortcut icon" href="http://cdn.onlinewebfonts.com/svg/img_461716.png">
-    <link rel="stylesheet" href="style.css">
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js "></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.min.js "></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <script src="script.js "></script>
-
+    <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        input {
-            width: 200px;
-            outline: none;
-            border: solid;
-            color: white;
-            background: none;
-        }
-        
-        body {
-            background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
-            background-size: 400% 400%;
-            opacity: 0.9;
-            animation: gradient 15s ease infinite;
-            height: 100vh;
-            font: open-sans-serif;
-        }
-        
-        a {
-            text-decoration: none;
-            color: black;
-        }
-        
         @keyframes gradient {
             0% {
                 background-position: 0% 50%;
@@ -48,171 +20,128 @@
                 background-position: 0% 50%;
             }
         }
-        
-        .animate__animated.animate__bounceInDown {
-            --animate-duration: 3s;
+
+        body {
+            background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+            background-size: 400% 400%;
+            animation: gradient 15s ease infinite;
+            height: 100vh;
+            font-family: 'Open Sans', sans-serif;
         }
-        
-        .animate__animated.animate__bounceInLeft {
-            --animate-duration: 2s;
-        }
-        
-        .animate__animated.animate__bounceInUp {
-            --animate-duration: 2s;
-        }
-        
-        .animate__animated.animate__bounceInRight {
-            --animate-duration: 2s;
-        }
-        
-        .blink_me {
-            animation: blinker 1s linear 5;
-        }
-        
-        @keyframes blinker {
-            50% {
-                opacity: 0;
-            }
-        }
-        
-        .btn:focus,
-        .btn:active:focus,
-        .btn.active:focus,
-        .btn.focus,
-        .btn:active.focus,
-        .btn.active.focus {
-            outline: none;
-        }
-        
-        input[type="datetime-local"]::-webkit-calendar-picker-indicator {
-            filter: invert(1);
-        }
-        
-        input {
-            background: none;
-            color: #fff;
-            border: none;
-            font-weight: bold;
-            outline: none;
-            width: 930px;
-            height: 200px;
-            caret-color: white;
+
+        .unselectable {
+            user-select: none;
         }
     </style>
 </head>
 
-<body class="unselectable">
-    <div class="time-label">
-        <h1 style="font-weight: bold; font-size:70px;margin-left:0px;color:#fff;margin-bottom:100px;" class="stopwatch animate__animated animate__bounceInDown" id="text/javascript">
-            <input style="color: white; padding-left: -1200px;" id="alarmTime" type="datetime-local" required>
-        </h1>
-        <span style="margin-left: 180px; color: white; font-size: 30px; visibility: hidden" id="countdown">The alarm will sound in </span><br>
-        <br>
-        <button style="margin-left: 400px;" title="Start stopwatch" class="btn btn-success btn-lg btn-start animate__animated animate__bounceInLeft" id="alarmButton" onclick="setAlarm(this);">Start Alarm</button>
+<body class="flex flex-col items-center justify-center text-white px-4">
+    <header class="mb-8 text-center">
+        <h1 class="text-4xl font-bold">Clockify</h1>
+        <p class="text-lg mt-2">Set Your Alarm with Ease</p>
+    </header>
 
-        <br>
-        <div class="buttons animate__animated animate__bounceInUp" style="display: inline-block;">
-            <button type="button" class="btn btn-primary btn-lg dst-btn"><a style="color: white;" href="alarm.html">Alarm</a></button>
-            <button type="button" class="btn btn-light btn-lg dst-btn"><a href="clocks.html">Clocks</a></button>
-            <button id="style" type="button" class="btn btn-light btn-lg dst-btn"><a href="index.html">Home</a></button>
-            <button id="stopwatch" type="button " class="btn btn-light btn-lg dst-btn "><a href="stopwatch.html">Stopwatch</a></button>
-            <button type="button" class="btn btn-light btn-lg dst-btn "><a href="countdown.html">Countdown</a></button>
+    <main class="w-full max-w-lg text-center">
+        <div class="mb-6">
+            <h2 class="text-2xl font-semibold mb-4">Set Your Alarm</h2>
+            <input 
+                id="alarmTime" 
+                type="datetime-local" 
+                class="w-full p-3 text-black rounded-lg shadow focus:outline-none focus:ring-2 focus:ring-blue-400" 
+                required
+            >
+            <div id="countdown" class="mt-4 text-xl hidden">Alarm will ring in: <span id="time-left"></span></div>
         </div>
 
+        <div class="flex justify-center gap-4">
+            <button 
+                id="alarmButton" 
+                class="px-6 py-3 bg-green-500 text-white rounded-lg shadow hover:bg-green-600 focus:outline-none">
+                Start Alarm
+            </button>
+            <button 
+                id="cancelButton" 
+                class="px-6 py-3 bg-red-500 text-white rounded-lg shadow hover:bg-red-600 hidden focus:outline-none">
+                Cancel Alarm
+            </button>
+        </div>
+    </main>
 
-        <script type="text/javascript">
-            console.warn = () => {};
-            console.info = () => {};
-            console.error = () => {};
+    <footer class="mt-10 flex flex-wrap justify-center gap-4">
+        <a href="alarm.html" class="px-6 py-3 bg-blue-500 text-white rounded-lg shadow hover:bg-blue-600">Alarm</a>
+        <a href="clocks.html" class="px-6 py-3 bg-gray-100 text-gray-800 rounded-lg shadow hover:bg-gray-200">Clocks</a>
+        <a href="index.html" class="px-6 py-3 bg-gray-100 text-gray-800 rounded-lg shadow hover:bg-gray-200">Home</a>
+        <a href="stopwatch.html" class="px-6 py-3 bg-gray-100 text-gray-800 rounded-lg shadow hover:bg-gray-200">Stopwatch</a>
+        <a href="countdown.html" class="px-6 py-3 bg-gray-100 text-gray-800 rounded-lg shadow hover:bg-gray-200">Countdown</a>
+    </footer>
 
-            var alarmSound = new Audio();
-            alarmSound.src = 'alarm.mp3';
-            var alarmTimer;
+    <script>
+        const alarmButton = document.getElementById('alarmButton');
+        const cancelButton = document.getElementById('cancelButton');
+        const countdown = document.getElementById('countdown');
+        const timeLeft = document.getElementById('time-left');
+        let alarmTimer;
 
-            const now = (new Date().toLocaleString("sv-SE") + '').replace(' ', 'T');
-            $("#alarmTime").val(now);
-            const input = document.getElementById('alarmTime');
-            input.focus();
-            input.setSelectionRange(0, 3);
-            const button = document.getElementById('alarmButton');
+        alarmButton.addEventListener('click', () => {
+            const alarmTime = document.getElementById('alarmTime').valueAsNumber;
+            if (isNaN(alarmTime)) {
+                alert('Please set a valid time.');
+                return;
+            }
 
-            function setAlarm(button) {
-                var ms = document.getElementById('alarmTime').valueAsNumber;
-                if (isNaN(ms)) {
-                    alert('Invalid Date');
-                    return;
+            const currentTime = Date.now();
+            const timeDifference = alarmTime - currentTime;
+
+            if (timeDifference <= 0) {
+                alert('The specified time has already passed!');
+                return;
+            }
+
+            startCountdown(timeDifference);
+
+            alarmButton.classList.add('hidden');
+            cancelButton.classList.remove('hidden');
+        });
+
+        cancelButton.addEventListener('click', () => {
+            clearTimeout(alarmTimer);
+            countdown.classList.add('hidden');
+
+            alarmButton.classList.remove('hidden');
+            cancelButton.classList.add('hidden');
+        });
+
+        function startCountdown(duration) {
+            countdown.classList.remove('hidden');
+
+            let remainingTime = Math.floor(duration / 1000);
+
+            const updateCountdown = () => {
+                const hours = Math.floor(remainingTime / 3600);
+                const minutes = Math.floor((remainingTime % 3600) / 60);
+                const seconds = remainingTime % 60;
+
+                timeLeft.textContent = `${hours}h ${minutes}m ${seconds}s`;
+
+                if (remainingTime > 0) {
+                    remainingTime -= 1;
+                } else {
+                    clearInterval(alarmTimer);
+                    triggerAlarm();
                 }
-                var alarm = new Date(ms);
-                var alarmTime = new Date(alarm.getUTCFullYear(), alarm.getUTCMonth(), alarm.getUTCDate(), alarm.getUTCHours(), alarm.getUTCMinutes(), alarm.getUTCSeconds());
-
-                var differenceInMs = alarmTime.getTime() - (new Date()).getTime();
-                time = Math.floor(differenceInMs / 1000);
-                document.getElementById("countdown").style.visibility = "visible";
-                setInterval(function tick() {
-                    time--;
-                    if (time <= 0) {
-                        clearInterval(timer);
-                    }
-                    if (Math.floor(time / 3600) == 0) {
-                        document.getElementById('countdown').innerHTML = "The alarm will sound in " +
-                            `${Math.floor(time % 3600 / 60)}  mins : ${('0' + time % 3600 % 60).slice(-2)} secs`;
-                    } else if (Math.floor(time / 3600) == 0 || Math.floor(time % 3600 / 60) == 0) {
-                        document.getElementById('countdown').innerHTML = "The alarm will ring in " +
-                            `${('0' + time % 3600 % 60).slice(-2)} secs`;
-                    } else if (Math.floor(time % 3600 / 60) == 0) {
-                        document.getElementById('countdown').innerHTML = "The alarm will ring in " +
-                            `${('0' + time % 3600 % 60).slice(-2)} secs`;
-                    } else {
-                        document.getElementById('countdown').innerHTML = "The alarm will ring in " +
-                            `${Math.floor(time / 3600)} hrs : ${Math.floor(time % 3600 / 60)}  mins : ${('0' + time % 3600 % 60).slice(-2)} secs`;
-                    }
-                }, 1000);
-
-                if (differenceInMs < 0) {
-                    alert('The specified time is already passed!');
-                    console.log('The specified time is already passed!');
-                    document.getElementById("countdown").style.visibility = "hidden";
-                    clearTimeout(alarmTimer);
-                    $("#alarmButton").removeClass("btn-danger");
-                    $("#alarmButton").addClass("btn-success");
-                    button.innerText = 'Start Alarm ';
-                    button.setAttribute('onclick', 'setAlarm(this);')
-                    return;
-                }
-
-                alarmTimer = setTimeout(initAlarm, differenceInMs);
-                $("#alarmButton").removeClass("btn-success");
-                $("#alarmButton").addClass("btn-danger");
-                button.innerText = 'Cancel Alarm';
-                button.setAttribute('onclick', 'cancelAlarm(this);');
             };
 
-            function cancelAlarm(button) {
-                clearTimeout(alarmTimer);
-                document.getElementById("countdown").style.visibility = "hidden";
-                $("#alarmButton").removeClass("btn-danger");
-                $("#alarmButton").addClass("btn-success");
-                button.innerText = 'Start Alarm ';
-                button.setAttribute('onclick', 'setAlarm(this);');
-                const now = (new Date().toLocaleString("sv-SE") + '').replace(' ', 'T');
-                $("#alarmTime").val(now);
-            };
+            updateCountdown();
+            alarmTimer = setInterval(updateCountdown, 1000);
+        }
 
-            function initAlarm() {
-                alarmSound.play();
-                document.getElementById("countdown").style.visibility = "hidden";
-                $("#alarmTime").addClass("blink_me");
-            };
-
-            function stopAlarm() {
-                alarmSound.pause();
-                alarmSound.currentTime = 0;
-                document.getElementById('alarmOptions').style.display = 'none';
-                cancelAlarm(document.getElementById('alarmButton'));
-            };
-        </script>
-
-    </div>
+        function triggerAlarm() {
+            alert('Alarm ringing!');
+            countdown.classList.add('hidden');
+            alarmButton.classList.remove('hidden');
+            cancelButton.classList.add('hidden');
+        }
+    </script>
 </body>
 
 </html>
